@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+import TheHeader from './components/TheHeader'
+
+import ErrorPage from './pages/ErrorPage'
+import Home from './pages/Home'
+import Categories from './pages/Categories'
+import CategoryProducts from './pages/CategoryProducts'
+import Cart from './pages/Cart'
+
+import './App.css'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <TheHeader></TheHeader>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
+        <Route
+          path="/categories/:category"
+          element={<CategoryProducts />}
+        ></Route>
+        <Route path="*" element={<ErrorPage />}></Route>
+      </Routes>
+    </Router>
+  )
 }
 
-export default App;
+export default App

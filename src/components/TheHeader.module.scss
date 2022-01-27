@@ -1,0 +1,19 @@
+.navbar {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  background-color: #d4c5e2;
+
+  a {
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
