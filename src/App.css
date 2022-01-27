@@ -9,3 +9,10 @@ a {
 body {
   background-color: #347fc4;
 }
+
+.LoadingSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Product from '../components/Product'
+import LoadingSpinner from '../components/UX/LoadingSpinner'
+import { productType } from '../utils/productType'
 
 function Home() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<productType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [httpError, setHttpError] = useState(null)
 
@@ -24,12 +27,32 @@ function Home() {
     }
     fetchAllProducts()
   }, [])
+  if (isLoading) {
+    return (
+      <section className="LoadingSection">
+        <LoadingSpinner />
+      </section>
+    )
+  }
+  if (httpError) {
+    return (
+      <section className="LoadingSection">
+        <p>{httpError}</p>
+      </section>
+    )
+  }
   return (
-    <ul>
+    <section>
       {products.map((product) => (
-        <li>{product.title}</li>
+        <Product
+          key={product.id}
+          title={product.title}
+          description={product.description}
+          price={product.price}
+          image={product.image}
+        />
       ))}
-    </ul>
+    </section>
   )
 }
 
