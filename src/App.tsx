@@ -10,12 +10,14 @@ import CategoryProducts from './pages/CategoryProducts'
 import Cart from './pages/Cart'
 
 import './App.css'
+import ProductDetail from './pages/ProductDetail'
 function App() {
   return (
     <Router>
       <TheHeader></TheHeader>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/:productId" element={<ProductDetail />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route
