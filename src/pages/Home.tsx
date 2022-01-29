@@ -9,23 +9,35 @@ function Home() {
   const [httpError, setHttpError] = useState(null)
 
   useEffect(() => {
+    // initiate AbortController API to use in a cleanup
+    const abortController = new AbortController()
     const fetchAllProducts = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch('https://fakestoreapi.com/products')
+        const response = await fetch('https://fakestoreapi.com/products', {
+          // pass abortcontroller signal as a second argument to fetch
+          signal: abortController.signal,
+        })
         if (!response.ok) {
           throw new Error(`HTTP Error, status code ${response.status}`)
         }
         let actualProducts = await response.json()
         setProducts(actualProducts)
       } catch (error: any) {
-        setHttpError(error.message)
-        setProducts(null)
+        // if check guarantees that catch block will execute only on error and not on abort
+        if (!abortController.signal.aborted) {
+          setHttpError(error.message)
+          setProducts(null)
+        }
       } finally {
         setIsLoading(false)
       }
     }
     fetchAllProducts()
+    // cleanup function aborts fetch if component unmounts before data comes back
+    return () => {
+      abortController.abort()
+    }
   }, [])
   if (isLoading) {
     return (
