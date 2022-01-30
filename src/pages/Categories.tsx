@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import LoadingSpinner from '../components/UX/LoadingSpinner'
+import { Category } from '../utils/categoryType'
 
 const Categories = () => {
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [httpError, setHttpError] = useState(null)
 
@@ -26,7 +29,29 @@ const Categories = () => {
     }
     fetchCategories()
   }, [])
-  return <div></div>
+  if (isLoading) {
+    return (
+      <section className="LoadingSection">
+        <LoadingSpinner />
+      </section>
+    )
+  }
+  if (httpError) {
+    return (
+      <section className="LoadingSection">
+        <p>{httpError}</p>
+      </section>
+    )
+  }
+  return (
+    <section className="categories-section">
+      {categories.map((category, index) => (
+        <Link to={`/categories/${category}`} key={index}>
+          <h2>{category}</h2>
+        </Link>
+      ))}
+    </section>
+  )
 }
 
 export default Categories

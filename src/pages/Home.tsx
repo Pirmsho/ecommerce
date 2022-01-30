@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+
 import Product from '../components/Product'
 import LoadingSpinner from '../components/UX/LoadingSpinner'
+
 import { productType } from '../utils/productType'
 
 function Home() {
@@ -60,6 +62,7 @@ function Home() {
           key={product.id}
           id={product.id}
           title={product.title}
+          category={product.category}
           description={product.description}
           price={product.price}
           image={product.image}

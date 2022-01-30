@@ -8,6 +8,9 @@ import styles from './Product.module.scss'
 
 const Product = (props: productType) => {
   const dispatch = useDispatch()
+  const addToCartHandler = (product: productType) => {
+    dispatch(addToCart(product))
+  }
   return (
     <article className={styles.product}>
       <Link to={`/${props.id}`}>
@@ -28,7 +31,7 @@ const Product = (props: productType) => {
         </strong>
       </p>
       <p>{props.description}</p>
-      <button>+ Add To Cart</button>
+      <button onClick={() => addToCartHandler(props)}>+ Add To Cart</button>
     </article>
   )
 }

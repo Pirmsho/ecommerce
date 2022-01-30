@@ -26,3 +26,26 @@ body {
   align-items: center;
   margin-top: 100px;
 }
+.container {
+  width: 80%;
+  margin: 50px auto;
+}
+.categories-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 20px;
+}
+.categories-section a {
+  text-transform: capitalize;
+  color: white;
+  transition: all 0.3s;
+  padding: 10px;
+}
+.categories-section a:hover {
+  transform: scale(1.05);
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}

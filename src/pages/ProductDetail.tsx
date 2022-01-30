@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Product from '../components/Product'
 import LoadingSpinner from '../components/UX/LoadingSpinner'
 import { productType } from '../utils/productType'
 
@@ -8,7 +9,7 @@ const ProductDetail = () => {
   let { productId } = useParams()
 
   // Declare product, loading and error state
-  const [productDetail, setProductDetail] = useState<productType>()
+  const [productDetail, setProductDetail] = useState<any>({})
   const [isLoading, setIsLoading] = useState(false)
   const [httpError, setHttpError] = useState(null)
 
@@ -22,8 +23,8 @@ const ProductDetail = () => {
         if (!response.ok) {
           throw new Error(`HTTP Error, status code ${response.status}`)
         }
-        let actualProductDetail = await response.json()
-        console.log(actualProductDetail)
+        let actualProductDetail: productType = await response.json()
+
         setProductDetail(actualProductDetail)
       } catch (error: any) {
         setHttpError(error.message)
@@ -48,7 +49,18 @@ const ProductDetail = () => {
       </section>
     )
   }
-  return <div>{productDetail.title}</div>
+  return (
+    <section className="container">
+      <Product
+        id={productDetail.id}
+        title={productDetail.title}
+        description={productDetail.description}
+        category={productDetail.category}
+        price={productDetail.price}
+        image={productDetail.image}
+      ></Product>
+    </section>
+  )
 }
 
 export default ProductDetail
